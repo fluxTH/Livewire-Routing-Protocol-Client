@@ -53,7 +53,7 @@ class LWRPClientComms(threading.Thread):
 
             # Check if we've got data to send back to the LWRP server
             if len(self.sendQueue) > 0:
-                dataToSend = self.sendQueue[0]
+                dataToSend = self.sendQueue[0].encode('ascii')
 
                 while dataToSend:
                     sent = self.sock.send(dataToSend)
@@ -78,7 +78,7 @@ class LWRPClientComms(threading.Thread):
 
         while True:
             try:
-                totalData += self.sock.recv(1024)
+                totalData += self.sock.recv(1024).decode('ascii')
             except:
                 pass
 
